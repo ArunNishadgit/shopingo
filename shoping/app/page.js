@@ -1,10 +1,12 @@
+import Sliders from "@/components/layout/Slider/sliders";
+import BlogSection from "@/components/usefull/BlogSection";
 
 
 export default function Home() {
   return (
     <>
-    <h1>hello user
-    </h1>
+    <Sliders />
+    <BlogSection />
     </>
   );
 }
