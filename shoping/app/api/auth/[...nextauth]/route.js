@@ -30,14 +30,61 @@ const handler = NextAuth({
           user.password
         );
         if (!isPasswordCorrect) throw new Error("Invalid password");
+
         return user;
       },
     }),
   ],
+
   session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
+
   pages: {
     signIn: "/auth/login",
+  },
+
+  callbacks: {
+    // 🔹 1️⃣ When user signs in
+    async signIn({ user }) {
+      await connectDB();
+
+      // Check if user already exists
+      let existingUser = await User.findOne({ email: user.email });
+
+      // If new user (Google sign in), create in DB
+      if (!existingUser) {
+        existingUser = await User.create({
+          name: user.name || "No Name",
+          email: user.email,
+          role: user.email === "arunprojecthub@gmail.com" ? "admin" : "user",
+        });
+      } else {
+        // If already exists, ensure correct role
+        if (
+          user.email === "arunprojecthub@gmail.com" &&
+          existingUser.role !== "admin"
+        ) {
+          existingUser.role = "admin";
+          await existingUser.save();
+        }
+      }
+
+      return true;
+    },
+
+    // 🔹 2️⃣ Add user role to JWT token
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role || "user";
+      }
+      return token;
+    },
+
+    // 🔹 3️⃣ Add role to session (client side)
+    async session({ session, token }) {
+      session.user.role = token.role;
+      return session;
+    },
   },
 });
 
