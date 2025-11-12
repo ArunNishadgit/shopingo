@@ -10,6 +10,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Header() {
   const [showTop, setShowTop] = useState(true);
@@ -136,10 +137,21 @@ export default function Header() {
                   2
                 </span>
               </button>
-
+               <Link href="/dashboard">
               <button className="hover:text-blue-600 hidden md:block">
                 <User size={20} />
               </button>
+              </Link>
+
+
+
+
+
+
+
+
+
+
 
               {/* Mobile menu toggle */}
               <button
