@@ -1,6 +1,6 @@
 import Sliders from "@/components/layout/Slider/sliders";
-import poroductlist from "../components/poroductlist";
 import BlogSection from "@/components/usefull/BlogSection";
+import Productslist from "./products/page";
 
 
 
@@ -9,7 +9,7 @@ export default function Home() {
     <>
     <Sliders />
     <BlogSection />
-    <poroductlist /> 
+    <Productslist />
     </>
   );
 }
