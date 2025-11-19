@@ -23,12 +23,21 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <Providers>
-        <Header />
-        {children}
-        <Footer />
+
+          {/* HEADER */}
+          <Header />
+
+          {/* CONTENT — WILL PUSH FOOTER DOWN */}
+          <main className="flex-grow">
+            {children}
+          </main>
+
+          {/* FOOTER */}
+          <Footer />
+
         </Providers>
       </body>
     </html>
