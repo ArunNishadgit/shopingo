@@ -1,8 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header/page";
-import Footer from "@/components/layout/Footer/page";
 import Providers from "./providers";
+import HideRootLayout from "./HideRootLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,16 +26,10 @@ export default function RootLayout({ children }) {
       >
         <Providers>
 
-          {/* HEADER */}
-          <Header />
-
-          {/* CONTENT — WILL PUSH FOOTER DOWN */}
-          <main className="flex-grow">
+          {/* ⭐ HEADER/FOOTER logic now inside this client wrapper */}
+          <HideRootLayout>
             {children}
-          </main>
-
-          {/* FOOTER */}
-          <Footer />
+          </HideRootLayout>
 
         </Providers>
       </body>
